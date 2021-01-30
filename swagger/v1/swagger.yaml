@@ -1,0 +1,130 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/customers/{customer_id}/notifications":
+    get:
+      summary: Retrieve a customers notifications
+      tags:
+      - Notifications
+      parameters:
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: customers notifications found
+          content: {}
+    post:
+      summary: Create a customer notifications
+      tags:
+      - Notifications
+      parameters:
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: Customer notification created
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+  "/customers/{customer_id}/orders":
+    get:
+      summary: Retrieve a customers orders
+      tags:
+      - Orders
+      parameters:
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: customers orders found
+          content: {}
+    post:
+      summary: Create a customer order
+      tags:
+      - Orders
+      parameters:
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: Customer order created
+          content: {}
+        '400':
+          description: Missing parameters
+          content: {}
+        '422':
+          description: Insufficient quantity
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+  "/customers":
+    post:
+      summary: Create a customer
+      tags:
+      - Customers
+      parameters: []
+      responses:
+        '201':
+          description: customer created
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                name:
+                  type: string
+              required:
+              - email
+              - name
+  "/customers/{id}":
+    get:
+      summary: get a Customer
+      tags:
+      - Customers
+      parameters:
+      - name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: customer found
+          content: {}
+  "/products":
+    get:
+      summary: Retrieve all products
+      tags:
+      - Products
+      responses:
+        '200':
+          description: Products listed
+          content: {}
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

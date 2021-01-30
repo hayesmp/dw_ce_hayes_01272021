@@ -1,0 +1,47 @@
+openapi: 3.0.3
+
+info:
+  title: Backend Exercise (Optional, Advanced)
+  version: 1.0.0
+
+paths:
+  /customers/{id}/notifications:
+    post:
+      summary: Create Product Available Notification for given Customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Customer ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sku
+              properties:
+                sku:
+                  type: string
+                  example: ABC123
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  sku:
+                    type: string
+                    example: ABC123
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: '2020-06-15T20:22:26Z'

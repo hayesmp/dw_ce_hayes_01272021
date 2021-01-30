@@ -1,0 +1,148 @@
+openapi: 3.0.3
+
+info:
+  title: Backend Exercise (Primary)
+  version: 1.0.0
+
+paths:
+  /customers:
+    post:
+      summary: Create a new Customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - name
+              properties:
+                email:
+                  type: string
+                  example: steve.smith@example.org
+                name:
+                  type: string
+                  example: Steve Smith
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Steve Smith
+                  email:
+                    type: string
+                    example: steve.smith@example.org
+
+  /customers/{id}/orders:
+    get:
+      summary: Get Orders for given Customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Customer ID
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    sku:
+                      type: string
+                      example: ABC123
+                    total:
+                      type: number
+                      format: float
+                      example: 12.34
+                    created_at:
+                      type: string
+                      format: date-time
+                      example: '2020-06-15T20:22:26Z'
+
+    post:
+      summary: Create new Order for given Customer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Customer ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sku
+              properties:
+                sku:
+                  type: string
+                  example: ABC123
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  sku:
+                    type: string
+                    example: ABC123
+                  total:
+                    type: number
+                    format: float
+                    example: 12.34
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: '2020-06-15T20:22:26Z'
+
+  /products:
+    get:
+      summary: Get Products
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Bluetooth Keyboard
+                    description:
+                      type: string
+                      example: Longer description about a bluetooth keyboard
+                    sku:
+                      type: string
+                      example: ABC123
