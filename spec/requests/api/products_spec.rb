@@ -18,6 +18,7 @@ RSpec.describe 'api/products', type: :request do
           expect(data[0]['name'] != nil)
           expect(data[0]['description'] != nil)
           expect(data[0]['sku'] != nil)
+          expect(data[0]['quantity'] != nil)
         end
       end
     end

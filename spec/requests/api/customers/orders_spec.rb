@@ -4,6 +4,8 @@ RSpec.describe 'api/customers/orders', type: :request do
   path '/customers/{customer_id}/orders' do
     before do
       @customer = Customer.create_with(email: 'steve.smith@example.org').find_or_create_by(name: 'Steve Smith')
+      @product = Product.create(name: 'Unicorn', sku: 'ABC123', quantity: 10)
+      @product = Product.create(name: 'Rainbow', sku: 'DEF456', quantity: 0)
       @customer.orders.find_or_create_by(sku:'ABC123')
     end
 
@@ -34,7 +36,7 @@ RSpec.describe 'api/customers/orders', type: :request do
 
       response '201', 'Customer order created' do
         let(:customer_id) { @customer.id }
-        let(:order) { { sku: 'BCD456' } }
+        let(:order) { { sku: 'ABC123' } }
 
         run_test! do
           data = JSON.parse(response.body)
@@ -43,6 +45,20 @@ RSpec.describe 'api/customers/orders', type: :request do
           #expect(data['total'] == 0)
           expect(data['created_at'] != nil)
         end
+      end
+
+      response '400', 'Missing parameters' do
+        let(:customer_id) { @customer.id }
+        let(:order) { { sku: nil } }
+
+        run_test!
+      end
+
+      response '422', 'Insufficient quantity' do
+        let(:customer_id) { @customer.id }
+        let(:order) { { sku: 'DEF456' } }
+
+        run_test!
       end
     end
   end
