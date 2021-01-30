@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+[
+  ['Bluetooth Mouse', 'A bluetooth mouse.'],
+  ['Bluetooth Keyboard', 'A bluetooth keyboard.'],
+  ['Multisync Monitor', 'An antiquated Mitsubishi CRT monitor'],
+  ['Ryzen 7 PC', 'The latest in AMD performance.']
+].each do |product|
+  sku = SecureRandom.alphanumeric(6)
+  Product.create_with(description: product[1], sku: sku).find_or_create_by(name: product[0])
+end
