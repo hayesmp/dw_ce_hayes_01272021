@@ -31,6 +31,11 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Add the rails open-api/swagger gem
 gem 'rswag'
 
+# Everyone's favorite debugging tool
+gem 'pry-rails', :group => [:development, :test]
+
+gem 'active_model_serializers'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
