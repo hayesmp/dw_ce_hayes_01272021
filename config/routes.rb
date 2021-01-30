@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :customers, only: [:show, :create] do
     resources :orders, only: [:index, :create], controller: 'customers/orders'
+    resources :notifications, only: [:index, :create], controller: 'customers/notifications'
   end
 
   resources :products, only: [:index]
